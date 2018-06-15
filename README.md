@@ -1,10 +1,87 @@
 # VINS-Mono
-## A Robust and Versatile Monocular Visual-Inertial State Estimator
-**29 Dec 2017**: New features: Add map merge, pose graph reuse, online temporal calibration function, and support rolling shutter camera. Map reuse videos: 
 
-<a href="https://www.youtube.com/embed/WDpH80nfZes" target="_blank"><img src="http://img.youtube.com/vi/WDpH80nfZes/0.jpg" 
+[MYNT-EYE-SDK-2]: https://github.com/slightech/MYNT-EYE-SDK-2.git
+[MYNT-EYE-VINS-Sample]:https://code.slightech.com:666/sweeper/VINS-Mono.git
+
+
+## If you wanna run VINS-Mono with MYNT EYE camera, please follow the steps:
+
+1. Download [MYNT-EYE-SDK-2][] and install mynt_eye_ros_wrapper.
+2. Follow the normal procedure to install VINS-Mono.
+3. calibrate camera paramters and write to `<vins>/config/mynteye/mynteye_config.yaml`.
+4. Run mynt_eye_ros_wrapper & VINS-Mono to start.
+
+---
+
+## Install ROS Kinetic conveniently (if already installed, please ignore)
+
+```
+cd ~
+wget https://raw.githubusercontent.com/oroca/oroca-ros-pkg/master/ros_install.sh && \
+chmod 755 ./ros_install.sh && bash ./ros_install.sh catkin_ws kinetic
+```
+## Install MYNT-EYE-VINS-Sample
+
+```
+mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws/src
+git clone -b develop https://code.slightech.com:666/sweeper/VINS-Mono.git
+cd ..
+catkin_make
+source devel/setup.bash
+echo "~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+
+```
+
+
+
+## Calibrate camera parameters
+1\. launch `mynt_eye_ros_wrapper`
+```
+cd MYNT-EYE-SDK-2
+make ros
+source wrappers/ros/devel/setup.bash
+roslaunch mynt_eye_ros_wrapper mynteye.launch
+```
+2\. Launch `calibration_images`
+
+`calibration_images pkg` is used to get the calibration image list, press the `w`key to save image to `mynt_images file. We collect about 30 images to calibrate the camera parameters. here is [chessbord_9_6](./calibration_images/chessbord_9*6.jpg), grid_size measured value, unit millimeters.
+
+
+```
+roslaunch calibration_images calibration_images.launch
+```
+
+3\. run `camera_model` node to extrat camera parameters **in mynt_images**, copy the contents to `<vins>/config/mynteye/mynteye_config.yaml`.
+
+```
+roscd vins_estimator/../calibration_images/mynt_images
+rosrun camera_model Calibration -w 9 -h 6 -s 25.16 -p fisheye_ -e .jpg -i . --camera-model mei
+```
+
+The `camera_camera_calib.yaml` file is generated in the **mynt_images** after the calibration is completed.
+
+
+## Run VINS-Mono with MYNT EYE camera
+
+```
+cd ~/catkin_ws
+
+roslaunch roslaunch mynt_eye_ros_wrapper mynteye.launch
+
+roslaunch vins_estimator vins_rviz.launch
+
+roslaunch vins_estimator mynteye.launch
+```
+
+---
+## A Robust and Versatile Monocular Visual-Inertial State Estimator
+**29 Dec 2017**: New features: Add map merge, pose graph reuse, online temporal calibration function, and support rolling shutter camera. Map reuse videos:
+
+<a href="https://www.youtube.com/embed/WDpH80nfZes" target="_blank"><img src="http://img.youtube.com/vi/WDpH80nfZes/0.jpg"
 alt="cla" width="240" height="180" border="10" /></a>
-<a href="https://www.youtube.com/embed/eINyJHB34uU" target="_blank"><img src="http://img.youtube.com/vi/eINyJHB34uU/0.jpg" 
+<a href="https://www.youtube.com/embed/eINyJHB34uU" target="_blank"><img src="http://img.youtube.com/vi/eINyJHB34uU/0.jpg"
 alt="icra" width="240" height="180" border="10" /></a>
 
 VINS-Mono is a real-time SLAM framework for **Monocular Visual-Inertial Systems**. It uses an optimization-based sliding window formulation for providing high-accuracy visual-inertial odometry. It features efficient IMU pre-integration with bias correction, automatic estimator initialization, online extrinsic calibration, failure detection and recovery, loop detection, and global pose graph optimization, map merge, pose graph reuse, online temporal calibration, rolling shutter support. VINS-Mono is primarily designed for state estimation and feedback control of autonomous drones, but it is also capable of providing accurate localization for AR applications. This code runs on **Linux**, and is fully integrated with **ROS**. For **iOS** mobile implementation, please go to [VINS-Mobile](https://github.com/HKUST-Aerial-Robotics/VINS-Mobile).
@@ -13,25 +90,25 @@ VINS-Mono is a real-time SLAM framework for **Monocular Visual-Inertial Systems*
 
 **Videos:**
 
-<a href="https://www.youtube.com/embed/mv_9snb_bKs" target="_blank"><img src="http://img.youtube.com/vi/mv_9snb_bKs/0.jpg" 
+<a href="https://www.youtube.com/embed/mv_9snb_bKs" target="_blank"><img src="http://img.youtube.com/vi/mv_9snb_bKs/0.jpg"
 alt="euroc" width="240" height="180" border="10" /></a>
-<a href="https://www.youtube.com/embed/g_wN0Nt0VAU" target="_blank"><img src="http://img.youtube.com/vi/g_wN0Nt0VAU/0.jpg" 
+<a href="https://www.youtube.com/embed/g_wN0Nt0VAU" target="_blank"><img src="http://img.youtube.com/vi/g_wN0Nt0VAU/0.jpg"
 alt="indoor_outdoor" width="240" height="180" border="10" /></a>
-<a href="https://www.youtube.com/embed/I4txdvGhT6I" target="_blank"><img src="http://img.youtube.com/vi/I4txdvGhT6I/0.jpg" 
+<a href="https://www.youtube.com/embed/I4txdvGhT6I" target="_blank"><img src="http://img.youtube.com/vi/I4txdvGhT6I/0.jpg"
 alt="AR_demo" width="240" height="180" border="10" /></a>
 
 EuRoC dataset;                  Indoor and outdoor performance;                         AR application;
 
-<a href="https://www.youtube.com/embed/2zE84HqT0es" target="_blank"><img src="http://img.youtube.com/vi/2zE84HqT0es/0.jpg" 
+<a href="https://www.youtube.com/embed/2zE84HqT0es" target="_blank"><img src="http://img.youtube.com/vi/2zE84HqT0es/0.jpg"
 alt="MAV platform" width="240" height="180" border="10" /></a>
-<a href="https://www.youtube.com/embed/CI01qbPWlYY" target="_blank"><img src="http://img.youtube.com/vi/CI01qbPWlYY/0.jpg" 
+<a href="https://www.youtube.com/embed/CI01qbPWlYY" target="_blank"><img src="http://img.youtube.com/vi/CI01qbPWlYY/0.jpg"
 alt="Mobile platform" width="240" height="180" border="10" /></a>
 
  MAV application;               Mobile implementation (Video link for mainland China friends: [Video1](http://www.bilibili.com/video/av10813254/) [Video2](http://www.bilibili.com/video/av10813205/) [Video3](http://www.bilibili.com/video/av10813089/) [Video4](http://www.bilibili.com/video/av10813325/) [Video5](http://www.bilibili.com/video/av10813030/))
 
 **Related Papers**
-* **VINS-Mono: A Robust and Versatile Monocular Visual-Inertial State Estimator**, Tong Qin, Peiliang Li, Zhenfei Yang, Shaojie Shen [arXiv:1708.03852](https://arxiv.org/abs/1708.03852v1) 
-* **Autonomous Aerial Navigation Using Monocular Visual-Inertial Fusion**, Yi Lin, Fei Gao, Tong Qin, Wenliang Gao, Tianbo Liu, William Wu, Zhenfei Yang, Shaojie Shen, J Field Robotics. 2017;00:1–29. [https://doi.org/10.1002/rob.21732](https://doi.org/10.1002/rob.21732)  
+* **VINS-Mono: A Robust and Versatile Monocular Visual-Inertial State Estimator**, Tong Qin, Peiliang Li, Zhenfei Yang, Shaojie Shen [arXiv:1708.03852](https://arxiv.org/abs/1708.03852v1)
+* **Autonomous Aerial Navigation Using Monocular Visual-Inertial Fusion**, Yi Lin, Fei Gao, Tong Qin, Wenliang Gao, Tianbo Liu, William Wu, Zhenfei Yang, Shaojie Shen, J Field Robotics. 2017;00:1–29. [https://doi.org/10.1002/rob.21732](https://doi.org/10.1002/rob.21732)
 ```
 @article{qin2017vins,
   title={VINS-Mono: A Robust and Versatile Monocular Visual-Inertial State Estimator},
@@ -44,10 +121,10 @@ alt="Mobile platform" width="240" height="180" border="10" /></a>
 @article{Lin17,
   Author = {Y. Lin and F. Gao and T. Qin and W. Gao and T. Liu and W. Wu and Z. Yang and S. Shen},
   Journal = jfr,
-  Title = {Autonomous Aerial Navigation Using Monocular Visual-Inertial Fusion},  
+  Title = {Autonomous Aerial Navigation Using Monocular Visual-Inertial Fusion},
   Volume = {00},
   Pages = {1-29},
-  Year = {2017}} 
+  Year = {2017}}
 ```
 *If you use VINS-Mono for your academic research, please cite at least one of our related papers.*
 
@@ -63,7 +140,7 @@ additional ROS pacakge
 
 1.2. **Ceres Solver**
 Follow [Ceres Installation](http://ceres-solver.org/installation.html), remember to **make install**.
-(Our testing environment: Ubuntu 16.04, ROS Kinetic, OpenCV 3.3.1, Eigen 3.3.3) 
+(Our testing environment: Ubuntu 16.04, ROS Kinetic, OpenCV 3.3.1, Eigen 3.3.3)
 
 ## 2. Build VINS-Mono on ROS
 Clone the repository and catkin_make:
@@ -82,9 +159,9 @@ Download [EuRoC MAV Dataset](http://projects.asl.ethz.ch/datasets/doku.php?id=km
 
 3.1.1 Open three terminals, launch the vins_estimator , rviz and play the bag file respectively. Take MH_01 for example
 ```
-    roslaunch vins_estimator euroc.launch 
+    roslaunch vins_estimator euroc.launch
     roslaunch vins_estimator vins_rviz.launch
-    rosbag play YOUR_PATH_TO_DATASET/MH_01_easy.bag 
+    rosbag play YOUR_PATH_TO_DATASET/MH_01_easy.bag
 ```
 (If you fail to open vins_rviz.launch, just open an empty rviz, then load the config file: file -> Open Config-> YOUR_VINS_FOLDER/config/vins_rviz_config.rviz)
 
@@ -92,8 +169,8 @@ Download [EuRoC MAV Dataset](http://projects.asl.ethz.ch/datasets/doku.php?id=km
 ```
     roslaunch benchmark_publisher publish.launch  sequence_name:=MH_05_difficult
 ```
- (Green line is VINS result, red line is ground truth). 
- 
+ (Green line is VINS result, red line is ground truth).
+
 3.1.3 (Optional) You can even run EuRoC **without extrinsic parameters** between camera and IMU. We will calibrate them online. Replace the first command with:
 ```
     roslaunch vins_estimator euroc_no_extrinsic_param.launch
@@ -108,7 +185,7 @@ After playing MH_01 bag, you can continue playing MH_02 bag, MH_03 bag ... The s
 
 3.3.1 map save
 
-Set the **pose_graph_save_path** in the config file (YOUR_VINS_FOLEDER/config/euroc/euroc_config.yaml). After playing MH_01 bag, input **s** in vins_estimator terminal, then **enter**. The current pose graph will be saved. 
+Set the **pose_graph_save_path** in the config file (YOUR_VINS_FOLEDER/config/euroc/euroc_config.yaml). After playing MH_01 bag, input **s** in vins_estimator terminal, then **enter**. The current pose graph will be saved.
 
 3.3.2 map load
 
@@ -121,11 +198,11 @@ Set the **load_previous_pose_graph** to 1 before doing 3.1.1. The system will lo
 ```
     roslaunch ar_demo 3dm_bag.launch
     roslaunch ar_demo ar_rviz.launch
-    rosbag play YOUR_PATH_TO_DATASET/ar_box.bag 
+    rosbag play YOUR_PATH_TO_DATASET/ar_box.bag
 ```
-We put one 0.8m x 0.8m x 0.8m virtual box in front of your view. 
+We put one 0.8m x 0.8m x 0.8m virtual box in front of your view.
 
-## 5. Run with your device 
+## 5. Run with your device
 
 Suppose you are familiar with ROS and you can get a camera and an IMU with raw metric measurements in ROS topic, you can follow these steps to set up your device. For beginners, we highly recommend you to first try out [VINS-Mobile](https://github.com/HKUST-Aerial-Robotics/VINS-Mobile) if you have iOS devices since you don't need to set up anything.
 
@@ -140,16 +217,16 @@ We support the [pinhole model](http://docs.opencv.org/2.4.8/modules/calib3d/doc/
 If you have seen the config files for EuRoC and AR demos, you can find that we can estimate and refine them online. If you familiar with transformation, you can figure out the rotation and position by your eyes or via hand measurements. Then write these values into config as the initial guess. Our estimator will refine extrinsic parameters online. If you don't know anything about the camera-IMU transformation, just ignore the extrinsic parameters and set the **estimate_extrinsic** to **2**, and rotate your device set at the beginning for a few seconds. When the system works successfully, we will save the calibration result. you can use these result as initial values for next time. An example of how to set the extrinsic parameters is in[extrinsic_parameter_example](https://github.com/HKUST-Aerial-Robotics/VINS-Mono/blob/master/config/extrinsic_parameter_example.pdf)
 
 5.4 **Temporal calibration**:
-Most self-made visual-inertial sensor sets are unsynchronized. You can set **estimate_td** to 1 to online estimate the time offset between your camera and IMU.  
+Most self-made visual-inertial sensor sets are unsynchronized. You can set **estimate_td** to 1 to online estimate the time offset between your camera and IMU.
 
 5.5 **Rolling shutter**:
 For rolling shutter camera (carefully calibrated, reprojection error under 0.5 pixel), set **rolling_shutter** to 1. Also, you should set rolling shutter readout time **rolling_shutter_tr**, which is from sensor datasheet(usually 0-0.05s, not exposure time). Don't try web camera, the web camera is so awful.
 
 5.6 Other parameter settings: Details are included in the config file.
 
-5.7 Performance on different devices: 
+5.7 Performance on different devices:
 
-(global shutter camera + synchronized high-end IMU, e.g. VI-Sensor) > (global shutter camera + synchronized low-end IMU) > (global camera + unsync high frequency IMU) > (global camera + unsync low frequency IMU) > (rolling camera + unsync low frequency IMU). 
+(global shutter camera + synchronized high-end IMU, e.g. VI-Sensor) > (global shutter camera + synchronized low-end IMU) > (global camera + unsync high frequency IMU) > (global camera + unsync low frequency IMU) > (rolling camera + unsync low frequency IMU).
 
 
 ## 6. Acknowledgements
