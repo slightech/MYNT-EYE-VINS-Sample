@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+	<node name="calibration_images" pkg="calibration_images" type="calibration_images" output="screen">
+        	<param name="image_topic" value="/mynteye/left"/>
+        	<param name="save_image_path" value="$(find calibration_images)/mynt_images"/>
+	</node>
+
+</launch>
+
+
