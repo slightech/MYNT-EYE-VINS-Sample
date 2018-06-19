@@ -8,7 +8,7 @@
 
 1. Download [MYNT-EYE-SDK-2][] and install mynt_eye_ros_wrapper.
 2. Follow the normal procedure to install VINS-Mono.
-3. calibrate camera paramters and write to `<vins>/config/mynteye/mynteye_config.yaml`.
+3. Update distortion_parameters and projection_parameters in `<vins>/config/mynteye/mynteye_config.yaml`
 4. Run mynt_eye_ros_wrapper & VINS-Mono to start.
 
 ---
@@ -33,10 +33,30 @@ echo "~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
 ```
+## Get image calibration parameters
+Assume that the left eye of the mynteye camera is used with imu.Through the GetIntrinsics() and GetExtrinsics() function of the [MYNT-EYE-SDK-2][] API, you can get the image calibration parameters of the currently open device,follow the steps
+```
+cd MYNT-EYE-SDK-2
+./samples/_output/bin/tutorials/get_img_params
+```
+After running the above type, pinhole's distortion_parameters and projection_parameters is obtained , and then update to `<vins>/config/mynteye/mynteye_config.yaml`.
 
 
 
-## Calibrate camera parameters
+## Run VINS-Mono with MYNT EYE camera
+
+```
+cd ~/catkin_ws
+
+roslaunch roslaunch mynt_eye_ros_wrapper mynteye.launch
+
+roslaunch vins_estimator vins_rviz.launch
+
+roslaunch vins_estimator mynteye.launch
+```
+
+**Note**: If you want to use a fish-eye camera model, follow these steps to calibrate the camera parameters.
+
 1\. launch `mynt_eye_ros_wrapper`
 ```
 cd MYNT-EYE-SDK-2
@@ -46,7 +66,7 @@ roslaunch mynt_eye_ros_wrapper mynteye.launch
 ```
 2\. Launch `calibration_images`
 
-`calibration_images pkg` is used to get the calibration image list, press the `w`key to save image to `mynt_images file. We collect about 30 images to calibrate the camera parameters. here is [chessbord_9_6](./calibration_images/chessbord_9*6.jpg), grid_size measured value, unit millimeters.
+`calibration_images pkg` is used to get the calibration image list, press the `w`key to save image to `mynt_images file. We collect about 30 images to calibrate the camera parameters. here is [chessbord_9_6](./calibration_images/chessbord_9*6.jpg), grid_size is the measured value, unit millimeters.
 
 
 ```
@@ -62,18 +82,6 @@ rosrun camera_model Calibration -w 9 -h 6 -s 25.16 -p fisheye_ -e .jpg -i . --ca
 
 The `camera_camera_calib.yaml` file is generated in the **mynt_images** after the calibration is completed.
 
-
-## Run VINS-Mono with MYNT EYE camera
-
-```
-cd ~/catkin_ws
-
-roslaunch roslaunch mynt_eye_ros_wrapper mynteye.launch
-
-roslaunch vins_estimator vins_rviz.launch
-
-roslaunch vins_estimator mynteye.launch
-```
 
 ---
 ## A Robust and Versatile Monocular Visual-Inertial State Estimator
