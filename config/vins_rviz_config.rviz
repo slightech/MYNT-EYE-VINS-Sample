@@ -137,7 +137,7 @@ Visualization Manager:
           Marker Topic: /vins_estimator/camera_pose_visual
           Name: camera_visual
           Namespaces:
-            {}
+            CameraPoseVisualization: true
           Queue Size: 100
           Value: true
         - Alpha: 1
@@ -208,26 +208,6 @@ Visualization Manager:
             body:
               Value: true
             camera:
-              Value: true
-            mynteye_depth_frame:
-              Value: true
-            mynteye_disparity_frame:
-              Value: true
-            mynteye_disparity_norm_frame:
-              Value: true
-            mynteye_imu_frame:
-              Value: true
-            mynteye_left_frame:
-              Value: true
-            mynteye_left_rect_frame:
-              Value: true
-            mynteye_link:
-              Value: true
-            mynteye_points_frame:
-              Value: true
-            mynteye_right_frame:
-              Value: true
-            mynteye_right_rect_frame:
               Value: true
             world:
               Value: true
@@ -306,7 +286,7 @@ Visualization Manager:
           Marker Topic: /pose_graph/camera_pose_visual
           Name: camera_visual
           Namespaces:
-            {}
+            CameraPoseVisualization: true
           Queue Size: 100
           Value: true
         - Class: rviz/Image
@@ -326,7 +306,7 @@ Visualization Manager:
           Marker Topic: /pose_graph/key_odometrys
           Name: Marker
           Namespaces:
-            {}
+            key_odometrys: true
           Queue Size: 100
           Value: true
         - Alpha: 1
@@ -492,7 +472,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 20.9684067
+      Distance: 9.73590374 
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
@@ -507,7 +487,7 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 1.0797962
+      Pitch: 1.5679632
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz)
       Yaw: 3.08722663

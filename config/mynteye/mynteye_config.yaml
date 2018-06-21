@@ -1,7 +1,7 @@
 %YAML:1.0
 #common parameters
-imu_topic: "/mynteye/imu"
-image_topic: "/mynteye/left"
+imu_topic: "/mynteye/imu/data_raw"
+image_topic: "/mynteye/left/image_raw"
 output_path: "/home/zhangs/mynt_vins/config/mynteye"
 
 #camera calibration, please replace it with your own calibration file.
