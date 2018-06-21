@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+	<node name="calibration_images" pkg="calibration_images" type="calibration_images" output="screen">
+        	<param name="image_topic" value="/mynteye/left/image_raw"/>
+        	<param name="save_image_path" value="$(find calibration_images)/mynt_images_fisheye"/>
+        	<param name="pre_model" value="/fisheye_"/>
+	</node>
+
+</launch>
+
+
