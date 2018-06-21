@@ -50,8 +50,6 @@ cd ~/catkin_ws
 
 roslaunch roslaunch mynt_eye_ros_wrapper mynteye.launch
 
-roslaunch vins_estimator vins_rviz.launch
-
 roslaunch vins_estimator mynteye.launch
 ```
 
