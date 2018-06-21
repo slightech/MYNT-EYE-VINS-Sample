@@ -53,7 +53,7 @@ roslaunch roslaunch mynt_eye_ros_wrapper mynteye.launch
 roslaunch vins_estimator mynteye.launch
 ```
 
-**Note**: If you want to use a fish-eye camera model,please click [here](./calibration_images/README.md)
+**Note**: If you want to use a fish-eye camera model,please click [here](./calibration_images)
 
 
 ---

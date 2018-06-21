@@ -5,37 +5,37 @@ image_topic: "/mynteye/left/image_raw"
 output_path: "/home/zhangs/mynt_vins/config/mynteye"
 
 #camera calibration, please replace it with your own calibration file.
-model_type: MEI
-camera_name: camera
-image_width: 752
-image_height: 480
-mirror_parameters:
-   xi: 2.3240502152083149e+00
-distortion_parameters:
-   k1: -7.2846074363884863e-02
-   k2: 7.3922066251669893e-01
-   p1: 7.8031450490717439e-04
-   p2: 1.1125751544447434e-04
-projection_parameters:
-   gamma1: 1.1919574208429231e+03
-   gamma2: 1.1962419519374005e+03
-   u0: 3.9017559066380522e+02
-   v0: 2.5308889949771191e+02
-
-#model_type: PINHOLE
+#model_type: MEI
 #camera_name: camera
 #image_width: 752
 #image_height: 480
+#mirror_parameters:
+#   xi: 2.3240502152083149e+00
 #distortion_parameters:
-#    k1: -2.9058567027223442e-01
-#    k2: 6.9295576617881022e-02
-#    p1: 4.7247936227381250e-04
-#    p2: 6.0331327386279558e-04
+#   k1: -7.2846074363884863e-02
+#   k2: 7.3922066251669893e-01
+#   p1: 7.8031450490717439e-04
+#   p2: 1.1125751544447434e-04
 #projection_parameters:
-#   fx: 3.5776436231152178e+02
-#   fy: 3.5828000208691373e+02
-#   cx: 3.6892674652225207e+02
-#   cy: 2.3819463000984570e+02
+#   gamma1: 1.1919574208429231e+03
+#   gamma2: 1.1962419519374005e+03
+#   u0: 3.9017559066380522e+02
+#   v0: 2.5308889949771191e+02
+
+model_type: PINHOLE
+camera_name: camera
+image_width: 752
+image_height: 480
+distortion_parameters:
+   k1: -3.0825216120347504e-01
+   k2: 8.4251305214302186e-02
+   p1: -1.5009319710179576e-04
+   p2: 2.0170689406091280e-04
+projection_parameters:
+   fx: 3.5847442850029023e+02
+   fy: 3.5952665535350462e+02
+   cx: 3.8840661559633401e+02
+   cy: 2.5476941553631312e+02
 
 # Extrinsic parameter between IMU and Camera.
 estimate_extrinsic: 0   # 0  Have an accurate extrinsic parameters. We will trust the following imu^R_cam, imu^T_cam, don't change it.
