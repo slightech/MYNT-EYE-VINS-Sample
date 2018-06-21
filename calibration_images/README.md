@@ -28,10 +28,10 @@
       rosrun camera_model Calibration -w 9 -h 6 -s 25.16 -p fisheye_ -e .jpg -i . --camera-model mei
     ```
 
-   **pinhole model, follow the type:**
+    **pinhole model, follow the type:**
 
-   ```
-    roscd calibration_images/mynt_images_pinhole
-    rosrun camera_model Calibration -w 9 -h 6 -s 25.16 -p color_ -e .jpg -i . --camera-model pinhole
-   ```
-   The `camera_camera_calib.yaml` file is generated in the **mynt_images_fisheye** or mynt_images_pinhole file when the calibration is completed.
+    ```
+      roscd calibration_images/mynt_images_pinhole
+      rosrun camera_model Calibration -w 9 -h 6 -s 25.16 -p color_ -e .jpg -i . --camera-model pinhole
+    ```
+   The `camera_camera_calib.yaml` file is generated in the **mynt_images_fisheye** or **mynt_images_pinhole** file when the calibration is completed.
