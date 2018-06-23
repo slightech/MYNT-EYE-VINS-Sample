@@ -25,7 +25,7 @@ chmod 755 ./ros_install.sh && bash ./ros_install.sh catkin_ws kinetic
 ```
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src
-git clone -b develop https://code.slightech.com:666/sweeper/VINS-Mono.git
+git clone -b sdk2 https://code.slightech.com:666/sweeper/VINS-Mono.git
 cd ..
 catkin_make
 source devel/setup.bash
