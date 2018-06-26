@@ -8,7 +8,7 @@
 
 1. Download [MYNT-EYE-SDK-2][] and install mynt_eye_ros_wrapper.
 2. Follow the normal procedure to install VINS-Mono.
-3. Update distortion_parameters and projection_parameters in `<vins>/config/mynteye/mynteye_config.yaml`
+3. Update distortion_parameters and projection_parameters to  [here](./config/mynteye/mynteye_config.yaml)
 4. Run mynt_eye_ros_wrapper & VINS-Mono to start.
 
 ---
@@ -25,7 +25,7 @@ chmod 755 ./ros_install.sh && bash ./ros_install.sh catkin_ws kinetic
 ```
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src
-git clone -b sdk2 https://code.slightech.com:666/sweeper/VINS-Mono.git
+git clone -b sdk2 https://github.com/slightech/MYNT-EYE-VINS-Sample.git
 cd ..
 catkin_make
 source devel/setup.bash
@@ -39,7 +39,7 @@ Assume that the left eye of the mynteye camera is used with imu.Through the GetI
 cd MYNT-EYE-SDK-2
 ./samples/_output/bin/tutorials/get_img_params
 ```
-After running the above type, pinhole's distortion_parameters and projection_parameters is obtained , and then update to `<vins>/config/mynteye/mynteye_config.yaml`.
+After running the above type, pinhole's distortion_parameters and projection_parameters is obtained , and then update to [here](./config/mynteye/mynteye_config.yaml).
 
 
 
