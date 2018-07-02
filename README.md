@@ -48,7 +48,7 @@ After running the above type, pinhole's distortion_parameters and projection_par
 ```
 cd ~/catkin_ws
 
-roslaunch roslaunch mynt_eye_ros_wrapper mynteye.launch
+roslaunch mynt_eye_ros_wrapper mynteye.launch
 
 roslaunch vins_estimator mynteye.launch
 ```
