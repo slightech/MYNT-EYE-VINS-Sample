@@ -29,7 +29,7 @@ git clone -b sdk2 https://github.com/slightech/MYNT-EYE-VINS-Sample.git
 cd ..
 catkin_make
 source devel/setup.bash
-echo "~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
 ```
