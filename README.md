@@ -6,7 +6,7 @@
 
 ## If you wanna run VINS-Mono with MYNT EYE camera, please follow the steps:
 
-1. Download [MYNT-EYE-SDK-2][] and install mynt_eye_ros_wrapper.
+1. Download [MYNT-EYE-SDK-2][] and make ros.
 2. Follow the normal procedure to install VINS-Mono.
 3. Update distortion_parameters and projection_parameters to  [here](./config/mynteye/mynteye_config.yaml)
 4. Run mynt_eye_ros_wrapper & VINS-Mono to start.
