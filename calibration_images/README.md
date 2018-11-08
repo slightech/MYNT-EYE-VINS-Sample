@@ -2,7 +2,7 @@
 
 1. launch `mynt_eye_ros_wrapper`
    ```
-    cd MYNT-EYE-SDK-2
+    cd MYNT-EYE-S-SDK
     make ros
     source wrappers/ros/devel/setup.bash
     roslaunch mynt_eye_ros_wrapper mynteye.launch

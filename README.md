@@ -1,13 +1,13 @@
 # VINS-Mono
 
-[MYNT-EYE-SDK-2]: https://github.com/slightech/MYNT-EYE-SDK-2.git
+[MYNT-EYE-S-SDK]: https://github.com/slightech/MYNT-EYE-S-SDK.git
 [MYNT-EYE-VINS-Sample]:https://code.slightech.com:666/sweeper/VINS-Mono.git
 [make ros]:http://doc.myntai.com/resource/sdk/mynt-eye-sdk-guide-2.0.1-rc1-html-zh-Hans/mynt-eye-sdk-guide-2.0.1-rc1-html-zh-Hans/src/sdk/install_ros.html
 
 
 ## If you wanna run VINS-Mono with MYNT EYE camera, please follow the steps:
 
-1. Download [MYNT-EYE-SDK-2][] and [make ros][].
+1. Download [MYNT-EYE-S-SDK][] and [make ros][].
 2. Follow the normal procedure to install VINS-Mono.
 3. Update distortion_parameters and projection_parameters to  [here](./config/mynteye/mynteye_config.yaml)
 4. Run mynt_eye_ros_wrapper & VINS-Mono to start.
@@ -26,7 +26,7 @@ chmod 755 ./ros_install.sh && bash ./ros_install.sh catkin_ws kinetic
 ```
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src
-git clone -b sdk2 https://github.com/slightech/MYNT-EYE-VINS-Sample.git
+git clone -b mynteye-s https://github.com/slightech/MYNT-EYE-VINS-Sample.git
 cd ..
 catkin_make
 source devel/setup.bash
@@ -35,9 +35,9 @@ source ~/.bashrc
 
 ```
 ## Get image calibration parameters
-Assume that the left eye of the mynteye camera is used with imu.Through the GetIntrinsics() and GetExtrinsics() function of the [MYNT-EYE-SDK-2][] API, you can get the image calibration parameters of the currently open device,follow the steps
+Assume that the left eye of the mynteye camera is used with imu.Through the GetIntrinsics() and GetExtrinsics() function of the [MYNT-EYE-S-SDK][] API, you can get the image calibration parameters of the currently open device,follow the steps
 ```
-cd MYNT-EYE-SDK-2
+cd MYNT-EYE-S-SDK
 ./samples/_output/bin/tutorials/get_img_params
 ```
 After running the above type, pinhole's distortion_parameters and projection_parameters is obtained , and then update to [here](./config/mynteye/mynteye_config.yaml).
