@@ -2,8 +2,7 @@
 
 [MYNT-EYE-D-SDK]: https://github.com/slightech/MYNT-EYE-D-SDK.git
 [MYNT-EYE-VINS-Sample]:https://code.slightech.com:666/sweeper/VINS-Mono.git
-[make ros]:http://doc.myntai.com/resource/sdk/mynt-eye-sdk-guide-2.0.1-rc1-html-zh-Hans/mynt-eye-sdk-guide-2.0.1-rc1-html-zh-Hans/src/sdk/install_ros.html
-
+[make ros]:https://slightech.github.io/MYNT-EYE-D-SDK/md_guide_ros.html
 
 ## If you wanna run VINS-Mono with MYNT EYE camera, please follow the steps:
 
