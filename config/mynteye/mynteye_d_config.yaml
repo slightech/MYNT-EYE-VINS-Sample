@@ -1,0 +1,109 @@
+%YAML:1.0
+#common parameters
+imu_topic: "/mynteye/imu/data_raw"
+image_topic: "/mynteye/left/image_mono"
+output_path: "/home/myntai/outcome/config/mynteye"
+
+#camera calibration, please replace it with your own calibration file.
+model_type: MEI
+camera_name: camera
+image_width: 1280
+image_height: 720
+mirror_parameters:
+   xi: 2.1194262525320258
+distortion_parameters:
+   k1: -0.045619271572985884
+   k2: 0.3445639582055294
+   p1: 0.0013702082571015067
+   p2: -0.0004370901363878595
+projection_parameters:
+   gamma1: 2192.0393422024795
+   gamma2: 2191.4751134374337
+   u0: 646.0734707152836
+   v0: 367.9560187895614
+
+#model_type: PINHOLE
+#camera_name: camera
+#image_width: 640
+#image_height: 400
+#distortion_parameters:
+#   k1: -3.0825216120347504e-01
+#   k2: 8.4251305214302186e-02
+#   p1: -1.5009319710179576e-04
+#   p2: 2.0170689406091280e-04
+#projection_parameters:
+#   fx: 1.9739641213416058e+02
+#   fy: 1.9772337597617189e+02
+#   cx: 3.2611983633916327e+02
+#   cy: 1.9986969132833946e+02
+
+# Extrinsic parameter between IMU and Camera.
+estimate_extrinsic: 0   # 0  Have an accurate extrinsic parameters. We will trust the following imu^R_cam, imu^T_cam, don't change it.
+                        # 1  Have an initial guess about extrinsic parameters. We will optimize around your initial guess.
+                        # 2  Don't know anything about extrinsic parameters. You don't need to give R,T. We will try to calibrate it. Do some rotation movement at beginning.                        
+#If you choose 0 or 1, you should write down the following matrix.
+#Rotation from camera frame to imu frame, imu^R_cam
+extrinsicRotation: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [ 0.99996652,  0.00430873,  0.00695718,
+           0.00434878,  -0.99997401,  -0.00575128, 
+           0.00693222,  0.00578135,  -0.99995926]
+#Translation from camera frame to imu frame, imu^T_cam
+extrinsicTranslation: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [-0.04777362,-0.00223731, -0.02160071]
+
+#feature traker paprameters
+max_cnt: 150            # max feature number in feature tracking
+min_dist: 30            # min distance between two features 
+freq: 10                # frequence (Hz) of publish tracking result. At least 10Hz for good estimation. If set 0, the frequence will be same as raw image 
+F_threshold: 1.0        # ransac threshold (pixel)
+show_track: 1           # publish tracking image as topic
+equalize: 1             # if image is too dark or light, trun on equalize to find enough features
+fisheye: 0              # if using fisheye, trun on it. A circle mask will be loaded to remove edge noisy points
+
+#optimization parameters
+max_solver_time: 0.04  # max solver itration time (ms), to guarantee real time
+max_num_iterations: 8   # max solver itrations, to guarantee real time
+keyframe_parallax: 10.0 # keyframe selection threshold (pixel)
+
+#imu parameters       The more accurate parameters you provide, the better performance
+acc_n: 0.00253          # accelerometer measurement noise standard deviation. #0.599298904976
+#acc_n: 0.02024
+gyr_n: 0.0291        # gyroscope measurement noise standard deviation.     #0.198614898699
+#gyr_n: 0.2328
+acc_w: 2.04543326912e-05         # accelerometer bias random work noise standard deviation.  #0.02
+#acc_w: 1.636347e-04
+gyr_w: 0.00088056       # gyroscope bias random work noise standard deviation.     #4.0e-5
+#gyr_w: 0.00704448
+
+#imu parameters       The more accurate parameters you provide, the better performance
+#acc_n: 7.6509e-02           # accelerometer measurement noise standard deviation. #0.599298904976
+#gyr_n: 9.0086e-03          # gyroscope measurement noise standard deviation.     #0.198614898699
+#acc_w: 5.3271e-02        # accelerometer bias random work noise standard deviation.  #0.02
+#gyr_w: 5.5379e-05        # gyroscope bias random work noise standard deviation.     #4.0e-5
+
+g_norm: 9.806    # gravity magnitude
+
+#loop closure parameters
+loop_closure: 0                    # start loop closure
+load_previous_pose_graph: 0        # load and reuse previous pose graph; load from 'pose_graph_save_path'
+fast_relocalization: 0             # useful in real-time and large project
+pose_graph_save_path: "/home/myntai/outcome/config/mynteye/pose_graph/" # save and load path
+
+#unsynchronization parameters
+estimate_td: 1                      # online estimate time offset between camera and imu
+td: 0                       # initial value of time offset. unit: s. readed image clock + td = real image clock (IMU clock)
+
+#rolling shutter parameters
+rolling_shutter: 0                  # 0: global shutter camera, 1: rolling shutter camera
+rolling_shutter_tr: 0               # unit: s. rolling shutter read out time per frame (from data sheet). 
+
+#visualization parameters
+save_image: 1                   # save image in pose graph for visualization prupose; you can close this function by setting 0 
+visualize_imu_forward: 0        # output imu forward propogation to achieve low latency and high frequence results
+visualize_camera_size: 0.4      # size of camera marker in RVIZ
