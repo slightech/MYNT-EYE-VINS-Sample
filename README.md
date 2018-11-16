@@ -25,7 +25,7 @@ chmod 755 ./ros_install.sh && bash ./ros_install.sh catkin_ws kinetic
 ```
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src
-git clone -b mynteye-s https://github.com/slightech/MYNT-EYE-VINS-Sample.git
+git clone -b mynteye-d https://github.com/slightech/MYNT-EYE-VINS-Sample.git
 cd ..
 catkin_make
 source devel/setup.bash
