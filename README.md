@@ -34,11 +34,7 @@ source ~/.bashrc
 
 ```
 ## Get image calibration parameters
-Assume that the left eye of the mynteye camera is used with imu.Through the GetIntrinsics() and GetExtrinsics() function of the [MYNT-EYE-S-SDK][] API, you can get the image calibration parameters of the currently open device,follow the steps
-```
-cd MYNT-EYE-S-SDK
-./samples/_output/bin/tutorials/get_img_params
-```
+Assume that the left eye of the mynteye camera is used with imu.Through the GetMotionIntrinsics() and GetMotionExtrinsics() function of the [MYNT-EYE-D-SDK][] API.
 After running the above type, pinhole's distortion_parameters and projection_parameters is obtained , and then update to [here](./config/mynteye/mynteye_config.yaml).
 
 
