@@ -1,14 +1,16 @@
 # VINS-Mono
 
+[MYNT-EYE-S-SDK]: https://github.com/slightech/MYNT-EYE-S-SDK.git
 [MYNT-EYE-D-SDK]: https://github.com/slightech/MYNT-EYE-D-SDK.git
 [MYNT-EYE-VINS-Sample]:https://code.slightech.com:666/sweeper/VINS-Mono.git
-[make ros]:https://slightech.github.io/MYNT-EYE-D-SDK/md_guide_ros.html
+[make ros on mynteye-d]:https://slightech.github.io/MYNT-EYE-D-SDK/md_guide_ros.html
+[make ros on mynteye-s]:https://slightech.github.io/MYNT-EYE-S-SDK/md_guide_ros.html
 
 ## If you wanna run VINS-Mono with MYNT EYE camera, please follow the steps:
 
-1. Download [MYNT-EYE-D-SDK][] and [make ros][].
+1. When use MYNTEYE-S camera / MYNTEYE-D camera, you should Download [MYNT-EYE-S-SDK][] / [MYNT-EYE-D-SDK][] first and then [make ros on mynteye-s][] / [make ros on mynteye-d][].
 2. Follow the normal procedure to install VINS-Mono.
-3. Update distortion_parameters and projection_parameters to  [here](./config/mynteye/mynteye_config.yaml)
+3. Update distortion_parameters and projection_parameters to the config file [here(mynteye-s)](./config/mynteye/mynteye_s_config.yaml) / [here(mynteye-d)](./config/mynteye/mynteye_d_config.yaml);
 4. Run mynteye_wrapper_d & VINS-Mono to start.
 
 ---
@@ -25,7 +27,7 @@ chmod 755 ./ros_install.sh && bash ./ros_install.sh catkin_ws kinetic
 ```
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src
-git clone -b mynteye-d https://github.com/slightech/MYNT-EYE-VINS-Sample.git
+git clone -b mynteye https://github.com/slightech/MYNT-EYE-VINS-Sample.git
 cd ..
 catkin_make
 source devel/setup.bash
@@ -34,19 +36,36 @@ source ~/.bashrc
 
 ```
 ## Get image calibration parameters
-Assume that the left eye of the mynteye camera is used with imu.Through the GetMotionIntrinsics() and GetMotionExtrinsics() function of the [MYNT-EYE-D-SDK][] API.
-After running the above type, pinhole's distortion_parameters and projection_parameters is obtained , and then update to [here](./config/mynteye/mynteye_config.yaml).
+Assume that the left eye of the mynteye camera is used with imu.Through the GetMotionIntrinsics() and GetMotionExtrinsics() function of the [MYNT-EYE-S-SDK][] / [MYNT-EYE-D-SDK][] API.
+After running the above type, pinhole's distortion_parameters and projection_parameters is obtained , and then update to [here(mynteye-s)](./config/mynteye/mynteye_s_config.yaml) / [here(mynteye-d)](./config/mynteye/mynteye_d_config.yaml);
 
 
 
 ## Run VINS-Mono with MYNT EYE camera
 
+When you use mynteye-s device
 ```
+cd (local path of MYNT-EYE-S-SDK)
+
+source ./wrappers/ros/devel/setup.bash
+
+roslaunch ./wrappers/ros/src/mynteye_wrapper_d/launch/mynteye.launch
+
 cd ~/catkin_ws
 
-roslaunch mynteye_wrapper_d mynteye.launch
+roslaunch vins_estimator mynteye_s.launch
+```
+When you use mynteye-d device
+```
+cd (local path of MYNT-EYE-D-SDK)
 
-roslaunch vins_estimator mynteye.launch
+source ./wrappers/ros/devel/setup.bash
+
+roslaunch ./wrappers/ros/src/mynteye_wrapper_d/launch/mynteye.launch
+
+cd ~/catkin_ws
+
+roslaunch vins_estimator mynteye_d.launch
 ```
 
 **Note**: If you want to use a fish-eye camera model,please click [here](./calibration_images)
