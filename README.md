@@ -4,7 +4,7 @@
 [MYNT-EYE-D-SDK]: https://github.com/slightech/MYNT-EYE-D-SDK.git
 [MYNT-EYE-VINS-Sample]:https://code.slightech.com:666/sweeper/VINS-Mono.git
 [make ros on mynteye-d]:https://slightech.github.io/MYNT-EYE-D-SDK/md_guide_ros.html
-[make ros on mynteye-s]:https://slightech.github.io/MYNT-EYE-S-SDK/md_guide_ros.html
+[make ros on mynteye-s]:http://doc.myntai.com/resource/sdk/mynt-eye-sdk-guide-2.0.1-rc1-html-zh-Hans/mynt-eye-sdk-guide-2.0.1-rc1-html-zh-Hans/src/sdk/install_ros.html
 
 ## If you wanna run VINS-Mono with MYNT EYE camera, please follow the steps:
 
@@ -49,7 +49,7 @@ cd (local path of MYNT-EYE-S-SDK)
 
 source ./wrappers/ros/devel/setup.bash
 
-roslaunch ./wrappers/ros/src/mynteye_wrapper_d/launch/mynteye.launch
+roslaunch mynteye_wrapper_d mynteye.launch
 
 cd ~/catkin_ws
 
@@ -61,7 +61,7 @@ cd (local path of MYNT-EYE-D-SDK)
 
 source ./wrappers/ros/devel/setup.bash
 
-roslaunch ./wrappers/ros/src/mynteye_wrapper_d/launch/mynteye.launch
+roslaunch mynteye_wrapper_d mynteye.launch
 
 cd ~/catkin_ws
 
