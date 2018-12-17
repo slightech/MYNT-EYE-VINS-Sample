@@ -49,7 +49,7 @@ cd (local path of MYNT-EYE-S-SDK)
 
 source ./wrappers/ros/devel/setup.bash
 
-roslaunch mynteye_wrapper_d mynteye.launch
+roslaunch mynt_eye_ros_wrapper mynteye.launch
 
 cd ~/catkin_ws
 
