@@ -11,7 +11,7 @@
 1. When use MYNTEYE-S camera / MYNTEYE-D camera, you should Download [MYNT-EYE-S-SDK][] / [MYNT-EYE-D-SDK][] first and then [make ros on mynteye-s][] / [make ros on mynteye-d][].
 2. Follow the normal procedure to install VINS-Mono.
 3. Update distortion_parameters and projection_parameters to the config file [here(mynteye-s)](./config/mynteye/mynteye_s_config.yaml) / [here(mynteye-d)](./config/mynteye/mynteye_d_config.yaml);
-4. Run mynteye_wrapper_d & VINS-Mono to start.
+4. Run mynt_eye_ros_wrapper / mynteye_wrapper_d & VINS-Mono to start.
 
 ---
 
