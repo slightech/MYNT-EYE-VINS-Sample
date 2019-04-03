@@ -2,25 +2,23 @@
 #common parameters
 imu_topic: "/mynteye/imu/data_raw"
 image_topic: "/mynteye/left/image_mono"
-output_path: "/home/myntai/outcome/config/mynteye"
+output_path: "/dev/null"
 
 #camera calibration, please replace it with your own calibration file.
-model_type: MEI
+model_type: PINHOLE
 camera_name: camera
 image_width: 1280
-image_height: 720
-mirror_parameters:
-   xi: 2.1194262525320258
+image_height: 480
 distortion_parameters:
-   k1: -0.045619271572985884
-   k2: 0.3445639582055294
-   p1: 0.0013702082571015067
-   p2: -0.0004370901363878595
+   k1: 0
+   k2: 0
+   p1: 0
+   p2: 0
 projection_parameters:
-   gamma1: 2192.0393422024795
-   gamma2: 2191.4751134374337
-   u0: 646.0734707152836
-   v0: 367.9560187895614
+   fx: 3.5847442850029023e+02
+   fy: 3.5952665535350462e+02
+   cx: 3.8840661559633401e+02
+   cy: 2.5476941553631312e+02
 
 #model_type: PINHOLE
 #camera_name: camera
@@ -104,6 +102,6 @@ rolling_shutter: 0                  # 0: global shutter camera, 1: rolling shutt
 rolling_shutter_tr: 0               # unit: s. rolling shutter read out time per frame (from data sheet). 
 
 #visualization parameters
-save_image: 1                   # save image in pose graph for visualization prupose; you can close this function by setting 0 
+save_image: 0                   # save image in pose graph for visualization prupose; you can close this function by setting 0 
 visualize_imu_forward: 0        # output imu forward propogation to achieve low latency and high frequence results
 visualize_camera_size: 0.4      # size of camera marker in RVIZ

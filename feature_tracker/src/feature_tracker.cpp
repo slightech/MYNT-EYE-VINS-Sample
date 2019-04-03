@@ -130,12 +130,12 @@ void FeatureTracker::readImage(const cv::Mat &_img, double _cur_time)
     if (PUB_THIS_FRAME)
     {
         rejectWithF();
-        ROS_DEBUG("set mask begins");
+        ROS_INFO("set mask begins");
         TicToc t_m;
-        setMask();
-        ROS_DEBUG("set mask costs %fms", t_m.toc());
+        // setMask();
+        ROS_INFO("set mask costs %fms", t_m.toc());
 
-        ROS_DEBUG("detect feature begins");
+        ROS_INFO("detect feature begins");
         TicToc t_t;
         int n_max_cnt = MAX_CNT - static_cast<int>(forw_pts.size());
         if (n_max_cnt > 0)
@@ -150,12 +150,12 @@ void FeatureTracker::readImage(const cv::Mat &_img, double _cur_time)
         }
         else
             n_pts.clear();
-        ROS_DEBUG("detect feature costs: %fms", t_t.toc());
+        ROS_INFO("detect feature costs: %fms", t_t.toc());
 
-        ROS_DEBUG("add feature begins");
+        ROS_INFO("add feature begins");
         TicToc t_a;
         addPoints();
-        ROS_DEBUG("selectFeature costs: %fms", t_a.toc());
+        ROS_INFO("selectFeature costs: %fms", t_a.toc());
     }
     prev_img = cur_img;
     prev_pts = cur_pts;
