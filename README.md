@@ -10,8 +10,7 @@
 
 1. When use MYNTEYE-S camera / MYNTEYE-D camera, you should Download [MYNT-EYE-S-SDK][] / [MYNT-EYE-D-SDK][] first and then [make ros on mynteye-s][] / [make ros on mynteye-d][].
 2. Follow the normal procedure to install VINS-Mono.
-3. Update distortion_parameters and projection_parameters to the config file [here(mynteye-s)](./config/mynteye/mynteye_s_config.yaml) / [here(mynteye-d)](./config/mynteye/mynteye_d_config.yaml);
-4. Run mynt_eye_ros_wrapper / mynteye_wrapper_d & VINS-Mono to start.
+3. Run mynt_eye_ros_wrapper / mynteye_wrapper_d & VINS-Mono to start.
 
 ---
 
@@ -33,13 +32,7 @@ catkin_make
 source devel/setup.bash
 echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
-
 ```
-## Get image calibration parameters
-Assume that the left eye of the mynteye camera is used with imu.Through the GetMotionIntrinsics() and GetMotionExtrinsics() function of the [MYNT-EYE-S-SDK][] / [MYNT-EYE-D-SDK][] API.
-After running the above type, pinhole's distortion_parameters and projection_parameters is obtained , and then update to [here(mynteye-s)](./config/mynteye/mynteye_s_config.yaml) / [here(mynteye-d)](./config/mynteye/mynteye_d_config.yaml);
-
-
 
 ## Run VINS-Mono with MYNT EYE camera
 
@@ -55,7 +48,9 @@ cd ~/catkin_ws
 
 roslaunch vins_estimator mynteye_s.launch
 ```
+
 When you use mynteye-d device
+
 ```
 cd (local path of MYNT-EYE-D-SDK)
 
