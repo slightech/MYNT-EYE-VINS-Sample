@@ -1,4 +1,67 @@
+
 # VINS-Mono
+
+[MYNT-EYE-S-SDK]: https://github.com/slightech/MYNT-EYE-S-SDK.git
+[MYNT-EYE-D-SDK]: https://github.com/slightech/MYNT-EYE-D-SDK.git
+[MYNT-EYE-VINS-Sample]:https://code.slightech.com:666/sweeper/VINS-Mono.git
+[make ros on mynteye-d]:https://slightech.github.io/MYNT-EYE-D-SDK/ros_install.html
+[make ros on mynteye-s]:http://doc.myntai.com/resource/sdk/mynt-eye-sdk-guide-2.0.1-rc1-html-zh-Hans/mynt-eye-sdk-guide-2.0.1-rc1-html-zh-Hans/src/sdk/install_ros.html
+
+## If you wanna run VINS-Mono with MYNT EYE camera, please follow the steps:
+
+### When use MYNTEYE-S camera / MYNTEYE-D camera, you should Download [MYNT-EYE-S-SDK][] / [MYNT-EYE-D-SDK][] first and then [make ros on mynteye-s][] / [make ros on mynteye-d][].
+
+---
+
+## Install ROS Kinetic conveniently (if already installed, please ignore)
+
+```
+cd ~
+wget https://raw.githubusercontent.com/oroca/oroca-ros-pkg/master/ros_install.sh && \
+chmod 755 ./ros_install.sh && bash ./ros_install.sh catkin_ws kinetic
+```
+## Install MYNT-EYE-VINS-Sample
+
+first make sure [ros](http://wiki.ros.org/ROS/Installation) and [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/) are installed on your machine. Then add your account to `docker` group by `sudo usermod -aG docker $YOUR_USER_NAME`. **Relaunch the terminal or logout and re-login if you get `Permission denied` error**, type:
+```
+git clone xxx
+cd ./VINS-Mono/docker
+make build
+./run.sh LAUNCH_FILE_NAME   # ./run.sh euroc.launch
+```
+Note that the docker building process may take a while depends on your network and machine. After VINS-Mono successfully started, open another terminal and play your bag file, then you should be able to see the result. If you need modify the code, simply run `./run.sh LAUNCH_FILE_NAME` after your changes.
+
+
+## Run VINS-Mono with MYNT EYE camera
+
+When you use mynteye-s device
+```
+cd (local path of MYNT-EYE-S-SDK)
+
+source ./wrappers/ros/devel/setup.bash
+
+roslaunch mynt_eye_ros_wrapper mynteye.launch
+
+cd xxx/docker
+
+./run.sh mynteye_s.launch
+```
+When you use mynteye-d device
+```
+cd (local path of MYNT-EYE-D-SDK)
+
+source ./wrappers/ros/devel/setup.bash
+
+roslaunch mynteye_wrapper_d vins_mono.launch stream_mode:=1
+
+cd xxx/docker
+
+./run.sh mynteye_d.launch
+```
+   
+---
+
+
 ## A Robust and Versatile Monocular Visual-Inertial State Estimator
 
 **11 Jan 2019**: An extension of **VINS**, which supports stereo cameras / stereo cameras + IMU / mono camera + IMU, is published at [VINS-Fusion](https://github.com/HKUST-Aerial-Robotics/VINS-Fusion)
