@@ -21,6 +21,23 @@ cd ~
 wget https://raw.githubusercontent.com/oroca/oroca-ros-pkg/master/ros_install.sh && \
 chmod 755 ./ros_install.sh && bash ./ros_install.sh catkin_ws kinetic
 ```
+
+## Install Ceres Solver
+Follow [Ceres Installation](http://ceres-solver.org/installation.html).
+```commandline
+cd ~
+git clone https://ceres-solver.googlesource.com/ceres-solver
+sudo apt-get -y install cmake libgoogle-glog-dev libatlas-base-dev libeigen3-dev libsuitesparse-dev
+sudo add-apt-repository ppa:bzindovic/suitesparse-bugfix-1319687
+sudo apt-get update && sudo apt-get install libsuitesparse-dev
+mkdir ceres-bin
+cd ceres-bin
+cmake ../ceres-solver
+make -j3
+sudo make install
+```
+
+
 ## Install MYNT-EYE-VINS-Sample
 
 ```
@@ -43,11 +60,31 @@ cd (local path of MYNT-EYE-S-SDK)
 source ./wrappers/ros/devel/setup.bash
 
 roslaunch mynt_eye_ros_wrapper mynteye.launch
+```
+Open another terminal
+```
 
 cd ~/catkin_ws
 
 roslaunch vins_estimator mynteye_s.launch
 ```
+
+When you use mynteye-s2100 device
+```
+cd (local path of MYNT-EYE-S-SDK)
+
+source ./wrappers/ros/devel/setup.bash
+
+roslaunch mynt_eye_ros_wrapper mynteye.launch
+```
+Open another terminal
+```
+
+cd ~/catkin_ws
+
+roslaunch vins_estimator mynteye_s2100.launch
+```
+
 
 When you use mynteye-d device
 
@@ -56,7 +93,10 @@ cd (local path of MYNT-EYE-D-SDK)
 
 source ./wrappers/ros/devel/setup.bash
 
-roslaunch mynteye_wrapper_d mynteye.launch
+roslaunch mynteye_wrapper_d vins_mono.launch
+```
+Open another terminal
+```
 
 cd ~/catkin_ws
 
