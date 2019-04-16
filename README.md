@@ -24,7 +24,7 @@ chmod 755 ./ros_install.sh && bash ./ros_install.sh catkin_ws kinetic
 
 first make sure [ros](http://wiki.ros.org/ROS/Installation) and [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/) are installed on your machine. Then add your account to `docker` group by `sudo usermod -aG docker $YOUR_USER_NAME`. **Relaunch the terminal or logout and re-login if you get `Permission denied` error**, type:
 ```
-git clone xxx
+git clone https://github.com/slightech/MYNT-EYE-VINS-Sample.git
 cd ./VINS-Mono/docker
 make build
 ./run.sh LAUNCH_FILE_NAME   # ./run.sh euroc.launch
@@ -42,7 +42,7 @@ source ./wrappers/ros/devel/setup.bash
 
 roslaunch mynt_eye_ros_wrapper mynteye.launch
 
-cd xxx/docker
+cd path/to/VINS-Mono/docker
 
 ./run.sh mynteye_s.launch
 ```
@@ -54,7 +54,7 @@ source ./wrappers/ros/devel/setup.bash
 
 roslaunch mynteye_wrapper_d vins_mono.launch stream_mode:=1
 
-cd xxx/docker
+cd path/to/VINS-Mono/docker
 
 ./run.sh mynteye_d.launch
 ```
