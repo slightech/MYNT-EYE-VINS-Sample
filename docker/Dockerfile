@@ -19,7 +19,7 @@ RUN   if [ "x$(nproc)" = "x1" ] ; then export USE_PROC=1 ; \
       ros-${ROS_DISTRO}-tf && \
       rm -rf /var/lib/apt/lists/* && \
       # Build and install Ceres
-      git clone https://ceres-solver.googlesource.com/ceres-solver && \
+      git clone https://github.com/ceres-solver/ceres-solver.git && \
       cd ceres-solver && \
       git checkout tags/${CERES_VERSION} && \
       mkdir build && cd build && \
