@@ -20,17 +20,53 @@ cd ~
 wget https://raw.githubusercontent.com/oroca/oroca-ros-pkg/master/ros_install.sh && \
 chmod 755 ./ros_install.sh && bash ./ros_install.sh catkin_ws kinetic
 ```
+## Install Ceres
+```
+cd ~
+git clone https://ceres-solver.googlesource.com/ceres-solver
+sudo apt-get -y install cmake libgoogle-glog-dev libatlas-base-dev libeigen3-dev libsuitesparse-dev
+sudo add-apt-repository ppa:bzindovic/suitesparse-bugfix-1319687
+sudo apt-get update && sudo apt-get install libsuitesparse-dev
+mkdir ceres-bin
+cd ceres-bin
+cmake ../ceres-solver
+make -j3
+sudo make install
+```
+
+## Install Docker
+```
+sudo apt-get update
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io    
+```
+Then add your account to `docker` group by `sudo usermod -aG docker $YOUR_USER_NAME`. **Relaunch the terminal or logout and re-login if you get `Permission denied` error**.
+
 ## Install MYNT-EYE-VINS-Sample
 
-first make sure [ros](http://wiki.ros.org/ROS/Installation) and [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/) are installed on your machine. Then add your account to `docker` group by `sudo usermod -aG docker $YOUR_USER_NAME`. **Relaunch the terminal or logout and re-login if you get `Permission denied` error**, type:
+first make sure [ros](http://wiki.ros.org/ROS/Installation) and [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/) are installed on your machine. type:
 ```
 git clone https://github.com/slightech/MYNT-EYE-VINS-Sample.git
-cd ./VINS-Mono/docker
+cd MYNT-EYE-VINS-Sample/docker
 make build
-./run.sh LAUNCH_FILE_NAME   # ./run.sh euroc.launch
 ```
 Note that the docker building process may take a while depends on your network and machine. After VINS-Mono successfully started, open another terminal and play your bag file, then you should be able to see the result. If you need modify the code, simply run `./run.sh LAUNCH_FILE_NAME` after your changes.
 
+
+## Get image calibration parameters
+
+Use ``get_img_params`` get left intrinsics fx, fy, cx, cy(mynteye-s<equidistant> use mu,mv,u0,v0), and update [here(mynteye-s)](./config/mynteye/mynteye_s_config.yaml) / [here(mynteye-s2100)](./config/mynteye/mynteye_s2100_config.yaml) / [here(mynteye-d)](./config/mynteye/mynteye_d_config.yaml) .  
 
 ## Run VINS-Mono with MYNT EYE camera
 
@@ -41,7 +77,9 @@ cd (local path of MYNT-EYE-S-SDK)
 source ./wrappers/ros/devel/setup.bash
 
 roslaunch mynt_eye_ros_wrapper mynteye.launch
-
+```
+Open another terminal
+```
 cd path/to/VINS-Mono/docker
 
 ./run.sh mynteye_s.launch
@@ -52,8 +90,10 @@ cd (local path of MYNT-EYE-D-SDK)
 
 source ./wrappers/ros/devel/setup.bash
 
-roslaunch mynteye_wrapper_d vins_mono.launch stream_mode:=1
-
+roslaunch mynteye_wrapper_d vins_mono.launch stream_mode:=0
+```
+Open another terminal
+```
 cd path/to/VINS-Mono/docker
 
 ./run.sh mynteye_d.launch
