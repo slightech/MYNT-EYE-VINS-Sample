@@ -29,6 +29,7 @@ include_directories(
 )
 
 add_executable(feature_tracker
+    src/mynteye_adapter/mynteye_adapter.cpp
     src/feature_tracker_node.cpp
     src/parameters.cpp
     src/feature_tracker.cpp

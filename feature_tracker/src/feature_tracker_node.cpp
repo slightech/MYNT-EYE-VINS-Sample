@@ -6,6 +6,7 @@
 #include <std_msgs/Bool.h>
 #include <cv_bridge/cv_bridge.h>
 #include <message_filters/subscriber.h>
+#include "mynteye_adapter/mynteye_adapter.h"
 
 #include "feature_tracker.h"
 
@@ -24,6 +25,22 @@ int pub_count = 1;
 bool first_image_flag = true;
 double last_image_time = 0;
 bool init_pub = 0;
+
+template <typename T>
+T readParam(ros::NodeHandle &n, std::string name)
+{
+    T ans;
+    if (n.getParam(name, ans))
+    {
+        ROS_INFO_STREAM("Loaded " << name << ": " << ans);
+    }
+    else
+    {
+        ROS_ERROR_STREAM("Failed to load " << name);
+        n.shutdown();
+    }
+    return ans;
+}
 
 void img_callback(const sensor_msgs::ImageConstPtr &img_msg)
 {
@@ -210,8 +227,34 @@ int main(int argc, char **argv)
     ros::console::set_logger_level(ROSCONSOLE_DEFAULT_NAME, ros::console::levels::Info);
     readParameters(n);
 
+    std::string config_file;
+    config_file = readParam<std::string>(n, "config_file");
+    cv::FileStorage fsSettings(config_file, cv::FileStorage::READ);
+    if(!fsSettings.isOpened())
+    {
+        std::cerr << "ERROR: Wrong path to settings" << std::endl;
+    }
+
+    int mynteye_enable = (int)fsSettings["use_mynteye_adapter"];
+    bool parameters_adapter_res = false;
+    MynteyeAdapter* adapter = nullptr;
+    if (mynteye_enable) {
+        adapter = new MynteyeAdapter(config_file, "");
+        parameters_adapter_res =  adapter->readmynteyeConfig();
+    }
+    int pn__ = config_file.find_last_of('/');
+    std::string configPath__ = config_file.substr(0, pn__);
+    std::string device_info_path_left =
+        configPath__ + "/" + CLIB_INFO_FILE_NAME_L;
+    std::string device_info_path_right =
+        configPath__ + "/" + CLIB_INFO_FILE_NAME_R;
+
+    fsSettings.release();
+    std::string intri_2[2] =    {   device_info_path_left,
+                                    device_info_path_right};
+
     for (int i = 0; i < NUM_OF_CAM; i++)
-        trackerData[i].readIntrinsicParameter(CAM_NAMES[i]);
+        trackerData[i].readIntrinsicParameter(intri_2[i]);
 
     if(FISHEYE)
     {

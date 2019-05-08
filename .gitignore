@@ -12,3 +12,8 @@ A3_rs.launch
 test/
 test.launch
 .vscode/
+
+
+device_imu_params.yaml
+device_params_left.yaml
+device_params_right.yaml

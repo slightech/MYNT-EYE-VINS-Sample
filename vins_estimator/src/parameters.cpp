@@ -56,7 +56,7 @@ void readParameters(ros::NodeHandle &n)
     bool parameters_adapter_res = false;
     bool parameters_adapter_imu_res = false;
     MynteyeAdapter* adapter = nullptr;
-    if (mynteye_enable) {
+    if (mynteye_imu_srv != "") {
         adapter = new MynteyeAdapter(config_file, mynteye_imu_srv);
         parameters_adapter_res =  adapter->readmynteyeConfig();
         if (parameters_adapter_res) {
@@ -65,10 +65,6 @@ void readParameters(ros::NodeHandle &n)
     }
     int pn__ = config_file.find_last_of('/');
     std::string configPath__ = config_file.substr(0, pn__);
-    std::string device_info_path_left =
-        configPath__ + "/" + CLIB_INFO_FILE_NAME_L;
-    std::string device_info_path_right =
-        configPath__ + "/" + CLIB_INFO_FILE_NAME_R;
     std::string device_info_path_imu =
         configPath__ + "/" + IMU_PARAMS_FILE_NAME;
 
@@ -119,8 +115,22 @@ void readParameters(ros::NodeHandle &n)
             ROS_WARN(" fix extrinsic param ");
 
         cv::Mat cv_R, cv_T;
-        fsSettings["extrinsicRotation"] >> cv_R;
-        fsSettings["extrinsicTranslation"] >> cv_T;
+        if (parameters_adapter_imu_res) {
+            cv::FileStorage fsimuSettings(device_info_path_imu,
+                cv::FileStorage::READ);
+            if (fsimuSettings.isOpened()) {
+                fsimuSettings["extrinsicRotation"] >> cv_R;
+                fsimuSettings["extrinsicTranslation"] >> cv_T;
+            } else {
+                fsSettings["extrinsicRotation"] >> cv_R;
+                fsSettings["extrinsicTranslation"] >> cv_T;
+            }
+            fsimuSettings.release();
+        } else {
+            fsSettings["extrinsicRotation"] >> cv_R;
+            fsSettings["extrinsicTranslation"] >> cv_T;
+        }
+        
         Eigen::Matrix3d eigen_R;
         Eigen::Vector3d eigen_T;
         cv::cv2eigen(cv_R, eigen_R);
@@ -131,7 +141,6 @@ void readParameters(ros::NodeHandle &n)
         TIC.push_back(eigen_T);
         ROS_INFO_STREAM("Extrinsic_R : " << std::endl << RIC[0]);
         ROS_INFO_STREAM("Extrinsic_T : " << std::endl << TIC[0].transpose());
-        
     } 
 
     INIT_DEPTH = 5.0;
