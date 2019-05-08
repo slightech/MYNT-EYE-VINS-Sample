@@ -1,4 +1,5 @@
 #include "parameters.h"
+#include "mynteye_adapter/mynteye_adapter.h"
 
 double INIT_DEPTH;
 double MIN_PARALLAX;
@@ -48,6 +49,28 @@ void readParameters(ros::NodeHandle &n)
     {
         std::cerr << "ERROR: Wrong path to settings" << std::endl;
     }
+
+    std::string mynteye_imu_srv;
+    fsSettings["mynteye_imu_srv"] >> mynteye_imu_srv;
+    int mynteye_enable = (int)fsSettings["use_mynteye_adapter"];
+    bool parameters_adapter_res = false;
+    bool parameters_adapter_imu_res = false;
+    MynteyeAdapter* adapter = nullptr;
+    if (mynteye_enable) {
+        adapter = new MynteyeAdapter(config_file, mynteye_imu_srv);
+        parameters_adapter_res =  adapter->readmynteyeConfig();
+        if (parameters_adapter_res) {
+            parameters_adapter_imu_res = adapter->getImuRes();
+        }
+    }
+    int pn__ = config_file.find_last_of('/');
+    std::string configPath__ = config_file.substr(0, pn__);
+    std::string device_info_path_left =
+        configPath__ + "/" + CLIB_INFO_FILE_NAME_L;
+    std::string device_info_path_right =
+        configPath__ + "/" + CLIB_INFO_FILE_NAME_R;
+    std::string device_info_path_imu =
+        configPath__ + "/" + IMU_PARAMS_FILE_NAME;
 
     fsSettings["imu_topic"] >> IMU_TOPIC;
 

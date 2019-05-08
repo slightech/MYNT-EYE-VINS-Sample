@@ -34,6 +34,7 @@ catkin_package()
 
 add_executable(vins_estimator
     src/estimator_node.cpp
+    src/mynteye_adapter/mynteye_adapter.cpp
     src/parameters.cpp
     src/estimator.cpp
     src/feature_manager.cpp

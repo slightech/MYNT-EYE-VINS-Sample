@@ -4,6 +4,9 @@ imu_topic: "/mynteye/imu/data_raw"
 image_topic: "/mynteye/left/image_mono"
 output_path: "/dev/null"
 
+use_mynteye_adapter: 1
+mynteye_imu_srv: "d"
+
 model_type: PINHOLE
 camera_name: camera
 image_width: 640
