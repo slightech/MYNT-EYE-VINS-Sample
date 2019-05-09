@@ -25,6 +25,7 @@ static bool check_tag;
 static bool check_success_l_tag;
 static bool check_success_r_tag;
 static std::string config_file = "";
+std::string tp = "";
 
 bool ConversionIMUFromDeviceVINSFUSION(
     const std::string& path, const Config &config, const Config &config_r2l) {
@@ -59,6 +60,16 @@ bool ConversionIMUFromDeviceVINSFUSION(
 bool ConversionIMUFromDeviceVINSMONO(const std::string& path, const Config &config, const Config &config_r2l) {
   if (abs((double)config["rotation"][0]) < 0.0000001) {
     ROS_WARN("The imu extri param is invalid!, you shoud calib the imu extri manually!! and fill it to [%s]", config_file.c_str());
+    return false;
+  }
+  double fg = 0.0;
+  if (tp == "d") {
+    fg = 1000.0;
+  } else if(tp == "s2") {
+    fg = 1000.0;
+  } else if(tp == "s1") {
+    fg = 1.0;
+  } else {
     return false;
   }
   std::cout << "device_info_path_imu: " << path << std::endl;
@@ -225,14 +236,21 @@ bool MynteyeAdapter::readmynteyeConfig() {
   std::string imu_intri = "null";
   std::string imu_extri = "null";
   std::string extri_l2r_string = "null";
-  if (imu_srv_ == "s") {
+  if (imu_srv_ == "s2") {
     imu_intri = get_s_imu_intri_info();
     imu_extri = get_s_imu_extri_info();
     extri_l2r_string = get_s_extri_l2r();
+    tp = "s2";
+  } else if (imu_srv_ == "s1") {
+    imu_intri = get_s_imu_intri_info();
+    imu_extri = get_s_imu_extri_info();
+    extri_l2r_string = get_s_extri_l2r();
+    tp = "s1";
   } else if (imu_srv_ == "d") {
     imu_intri = get_d_imu_intri_info();
     imu_extri = get_d_imu_extri_info();
     extri_l2r_string = get_d_extri_l2r();
+    tp = "d";
   }
 
   if (imu_intri != "null" && imu_extri != "null") {
