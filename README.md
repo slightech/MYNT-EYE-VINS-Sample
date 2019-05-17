@@ -7,9 +7,9 @@
 [make ros on mynteye-d]:https://slightech.github.io/MYNT-EYE-D-SDK/ros_install.html
 [make ros on mynteye-s]:http://doc.myntai.com/resource/sdk/mynt-eye-sdk-guide-2.0.1-rc1-html-zh-Hans/mynt-eye-sdk-guide-2.0.1-rc1-html-zh-Hans/src/sdk/install_ros.html
 
-## If you wanna run VINS-Mono with MYNT EYE camera, please follow the steps:
+If you wanna run VINS-Mono with MYNT EYE camera, please follow the steps:
 
-### When use MYNTEYE-S camera / MYNTEYE-D camera, you should Download [MYNT-EYE-S-SDK][] / [MYNT-EYE-D-SDK][] first and then [make ros on mynteye-s][] / [make ros on mynteye-d][].
+When use MYNTEYE-S camera / MYNTEYE-D camera, you should Download [MYNT-EYE-S-SDK][] / [MYNT-EYE-D-SDK][] first and then [make ros on mynteye-s][] / [make ros on mynteye-d][].
 
 ---
 
