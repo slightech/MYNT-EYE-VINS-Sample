@@ -46,7 +46,7 @@ To complie with docker,we recommend that you should use more than 16G RAM, or en
 
 first make sure [ros](http://wiki.ros.org/ROS/Installation) and [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/) are installed on your machine. type:
 ```
-git clone -b test_new_rep https://github.com/slightech/MYNT-EYE-VINS-Sample.git
+git clone -b docker_feat https://github.com/slightech/MYNT-EYE-VINS-Sample.git
 cd MYNT-EYE-VINS-Sample/docker
 make build
 ```
