@@ -20,19 +20,6 @@ cd ~
 wget https://raw.githubusercontent.com/oroca/oroca-ros-pkg/master/ros_install.sh && \
 chmod 755 ./ros_install.sh && bash ./ros_install.sh catkin_ws kinetic
 ```
-## Install Ceres
-```
-cd ~
-git clone https://ceres-solver.googlesource.com/ceres-solver
-sudo apt-get -y install cmake libgoogle-glog-dev libatlas-base-dev libeigen3-dev libsuitesparse-dev
-sudo add-apt-repository ppa:bzindovic/suitesparse-bugfix-1319687
-sudo apt-get update && sudo apt-get install libsuitesparse-dev
-mkdir ceres-bin
-cd ceres-bin
-cmake ../ceres-solver
-make -j3
-sudo make install
-```
 
 ## Install Docker
 ```
@@ -76,7 +63,7 @@ cd (local path of MYNT-EYE-S-SDK)
 
 source ./wrappers/ros/devel/setup.bash
 
-roslaunch mynt_eye_ros_wrapper mynteye.launch
+roslaunch mynt_eye_ros_wrapper vins_mono.launch
 ```
 Open another terminal
 ```
@@ -84,6 +71,21 @@ cd path/to/VINS-Mono/docker
 
 ./run.sh mynteye_s.launch
 ```
+When you use mynteye-s2 device
+```
+cd (local path of MYNT-EYE-S-SDK)
+
+source ./wrappers/ros/devel/setup.bash
+
+roslaunch mynt_eye_ros_wrapper vins_mono.launch
+```
+Open another terminal
+```
+cd path/to/VINS-Mono/docker
+
+./run.sh mynteye_s2100.launch
+```
+
 When you use mynteye-d device
 ```
 cd (local path of MYNT-EYE-D-SDK)
