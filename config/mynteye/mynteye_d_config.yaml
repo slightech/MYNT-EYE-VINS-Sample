@@ -8,19 +8,19 @@ use_mynteye_adapter: 1
 mynteye_imu_srv: "d"
 
 model_type: PINHOLE
-camera_name: camera
+camera_name: pinhole
 image_width: 640
-image_height: 400
+image_height: 480
 distortion_parameters:
-  k1: 0
-  k2: 0
-  p1: 0
-  p2: 0
+   k1: 2.2106170654296875e-02
+   k2: 3.4332275390625000e-03
+   p1: -5.8364868164062500e-04
+   p2: -1.5220642089843750e-03
 projection_parameters:
-  fx: 356.16757202148437500
-  fy: 355.73739624023437500
-  cx: 308.69754028320312500
-  cy: 246.42385864257812500
+   fx: 5.2193524169921875e+02
+   fy: 5.2176794433593750e+02
+   cx: 3.0151367187500000e+02
+   cy: 2.3699928283691406e+02
 
 # Extrinsic parameter between IMU and Camera.
 estimate_extrinsic: 1   # 0  Have an accurate extrinsic parameters. We will trust the following imu^R_cam, imu^T_cam, don't change it.
@@ -33,15 +33,17 @@ extrinsicRotation: !!opencv-matrix
    rows: 3
    cols: 3
    dt: d
-   data: [ 0.99996652,  0.00430873,  0.00695718,
-           0.00434878,  -0.99997401,  -0.00575128, 
-           0.00693222,  0.00578135,  -0.99995926]
-#Translation from camera frame to imu frame, imu^T_cam
+   data: [ 9.9996651999999997e-01, 4.3087300000000002e-03,
+       6.9571800000000003e-03, 4.3487800000000000e-03,
+       -9.9997400999999997e-01, -5.7512800000000001e-03,
+       6.9322200000000002e-03, 5.7813500000000002e-03,
+       -9.9995926000000002e-01 ]
 extrinsicTranslation: !!opencv-matrix
    rows: 3
    cols: 1
    dt: d
-   data: [-0.04777362,-0.00223731, -0.02160071]
+   data: [ -4.7773620000000003e-02, -2.2373099999999997e-03,
+       -1.6007100000000000e-03 ]
 
 #feature traker paprameters
 max_cnt: 150            # max feature number in feature tracking
@@ -76,10 +78,10 @@ gyr_w: 0.00088056       # gyroscope bias random work noise standard deviation.  
 g_norm: 9.806    # gravity magnitude
 
 #loop closure parameters
-loop_closure: 0                    # start loop closure
+loop_closure: 1                    # start loop closure
 load_previous_pose_graph: 0        # load and reuse previous pose graph; load from 'pose_graph_save_path'
 fast_relocalization: 0             # useful in real-time and large project
-pose_graph_save_path: "/home/myntai/outcome/config/mynteye/pose_graph/" # save and load path
+pose_graph_save_path: "/you/local/path/to/mynteye/pose_graph/" # save and load path
 
 #unsynchronization parameters
 estimate_td: 1                      # online estimate time offset between camera and imu
