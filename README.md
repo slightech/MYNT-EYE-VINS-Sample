@@ -39,13 +39,14 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io    
 ```
 Then add your account to `docker` group by `sudo usermod -aG docker $YOUR_USER_NAME`. **Relaunch the terminal or logout and re-login if you get `Permission denied` error**.
+
 To complie with docker,we recommend that you should use more than 16G RAM, or ensure that the RAM and virtual memory space is greater than 16G.
 
 ## Install MYNT-EYE-VINS-Sample
 
 first make sure [ros](http://wiki.ros.org/ROS/Installation) and [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/) are installed on your machine. type:
 ```
-git clone https://github.com/slightech/MYNT-EYE-VINS-Sample.git
+git clone -b test_new_rep https://github.com/slightech/MYNT-EYE-VINS-Sample.git
 cd MYNT-EYE-VINS-Sample/docker
 make build
 ```
