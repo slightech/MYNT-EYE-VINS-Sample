@@ -1,12 +1,11 @@
 %YAML:1.0
 #common parameters
 imu_topic: "/mynteye/imu/data_raw"
-# image_topic: "/mynteye/right_rect_mono"
-image_topic: "/mynteye/right/image_mono"
+image0_topic: "/mynteye/left/image_raw"
 output_path: "/dev/null"
 
 use_mynteye_adapter: 1
-mynteye_imu_srv: "s2"
+mynteye_imu_srv: "s1"
 
 # camera calibration, please replace it with your own calibration file.
 # model_type: MEI
@@ -26,19 +25,24 @@ mynteye_imu_srv: "s2"
 #   u0: 3.9017559066380522e+02
 #   v0: 2.5308889949771191e+02
 
-model_type: KANNALA_BRANDT
-camera_name: kannala-brandt
-image_width: 640
-image_height: 400
+model_type: PINHOLE
+camera_name: camera
+image_width: 752
+image_height: 480
+distortion_parameters:
+   # k1: 0
+   # k2: 0
+   # p1: 0
+   # p2: 0
+   k1: -3.0825216120347504e-01
+   k2: 8.4251305214302186e-02
+   p1: -1.5009319710179576e-04
+   p2: 2.0170689406091280e-04
 projection_parameters:
-   k2: 5.2439847110591131e-01
-   k3: 3.2689444067913648e-01
-   k4: -7.6332452770569170e-01
-   k5: 3.3483575748734939e-01
-   mu: 1.9999833168166987e+02
-   mv: 2.0003418802231107e+02
-   u0: 3.0697887229339136e+02
-   v0: 1.9917771692957720e+02
+   fx: 3.5847442850029023e+02
+   fy: 3.5952665535350462e+02
+   cx: 3.8840661559633401e+02
+   cy: 2.5476941553631312e+02
 
 # model_type: PINHOLE
 # camera_name: camera
@@ -61,19 +65,20 @@ estimate_extrinsic: 1   # 0  Have an accurate extrinsic parameters. We will trus
                         # 2  Don't know anything about extrinsic parameters. You don't need to give R,T. We will try to calibrate it. Do some rotation movement at beginning.                        
 #If you choose 0 or 1, you should write down the following matrix.
 #Rotation from camera frame to imu frame, imu^R_cam
+
 extrinsicRotation: !!opencv-matrix
    rows: 3
    cols: 3
    dt: d
-   data: [-0.0064662, -0.99994994, -0.00763565,
-           0.99997909, -0.00646566, -0.00009558, 
-           0.0000462, -0.00763611, 0.99997084]
+   data: [-0.00703616, -0.99995328, -0.00662858,
+           0.99994059, -0.00709095, 0.00827845, 
+           -0.00832506, -0.00656994, 0.99994376]
 #Translation from camera frame to imu frame, imu^T_cam
 extrinsicTranslation: !!opencv-matrix
    rows: 3
    cols: 1
    dt: d
-   data: [0.00533646,-0.04302922, 0.02303124]
+   data: [0.00352007,-0.04430543, 0.02124595]
 
 #feature traker paprameters
 max_cnt: 150            # max feature number in feature tracking
