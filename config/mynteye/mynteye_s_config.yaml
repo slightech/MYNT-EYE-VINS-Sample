@@ -1,8 +1,8 @@
 %YAML:1.0
 #common parameters
 imu_topic: "/mynteye/imu/data_raw"
-image0_topic: "/mynteye/left/image_raw"
-output_path: "/dev/null"
+image_topic: "/mynteye/left/image_raw"
+output_path: "/home/zhangs/mynt_vins/config/mynteye"
 
 use_mynteye_adapter: 1
 mynteye_imu_srv: "s1"
@@ -30,10 +30,6 @@ camera_name: camera
 image_width: 752
 image_height: 480
 distortion_parameters:
-   # k1: 0
-   # k2: 0
-   # p1: 0
-   # p2: 0
    k1: -3.0825216120347504e-01
    k2: 8.4251305214302186e-02
    p1: -1.5009319710179576e-04
@@ -115,7 +111,7 @@ fast_relocalization: 0             # useful in real-time and large project
 pose_graph_save_path: "/home/zhangs/mynt_vins/config/mynteye/pose_graph/" # save and load path
 
 #unsynchronization parameters
-estimate_td: 0                      # online estimate time offset between camera and imu
+estimate_td: 1                      # online estimate time offset between camera and imu
 td: 0.0                             # initial value of time offset. unit: s. readed image clock + td = real image clock (IMU clock)
 
 #rolling shutter parameters
@@ -126,3 +122,5 @@ rolling_shutter_tr: 0               # unit: s. rolling shutter read out time per
 save_image: 1                   # save image in pose graph for visualization prupose; you can close this function by setting 0 
 visualize_imu_forward: 0        # output imu forward propogation to achieve low latency and high frequence results
 visualize_camera_size: 0.4      # size of camera marker in RVIZ
+
+
