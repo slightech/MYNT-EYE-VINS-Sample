@@ -39,6 +39,7 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io    
 ```
 Then add your account to `docker` group by `sudo usermod -aG docker $YOUR_USER_NAME`. **Relaunch the terminal or logout and re-login if you get `Permission denied` error**.
+To complie with docker,we recommend that you should use more than 16G RAM, or ensure that the RAM and virtual memory space is greater than 16G.
 
 ## Install MYNT-EYE-VINS-Sample
 
@@ -50,10 +51,6 @@ make build
 ```
 Note that the docker building process may take a while depends on your network and machine. After VINS-Mono successfully started, open another terminal and play your bag file, then you should be able to see the result. If you need modify the code, simply run `./run.sh LAUNCH_FILE_NAME` after your changes.
 
-
-## Get image calibration parameters
-
-Use ``get_img_params`` get left intrinsics fx, fy, cx, cy(mynteye-s<equidistant> use mu,mv,u0,v0), and update [here(mynteye-s)](./config/mynteye/mynteye_s_config.yaml) / [here(mynteye-s2100)](./config/mynteye/mynteye_s2100_config.yaml) / [here(mynteye-d)](./config/mynteye/mynteye_d_config.yaml) .  
 
 ## Run VINS-Mono with MYNT EYE camera
 
