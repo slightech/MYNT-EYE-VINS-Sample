@@ -166,4 +166,7 @@ void readParameters(ros::NodeHandle &n)
     }
     
     fsSettings.release();
+    if (adapter) {
+        delete adapter;
+    }
 }

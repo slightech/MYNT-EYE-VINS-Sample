@@ -281,6 +281,9 @@ int main(int argc, char **argv)
         cv::namedWindow("vis", cv::WINDOW_NORMAL);
     */
     ros::spin();
+    if (adapter) {
+        delete adapter;
+    }
     return 0;
 }
 
