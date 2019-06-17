@@ -65,7 +65,7 @@ roslaunch mynt_eye_ros_wrapper vins_mono.launch
 ```
 Open another terminal
 ```
-cd path/to/VINS-Mono/docker
+cd path/to/MYNT-EYE-VINS-Sample/docker
 
 ./run.sh mynteye_s.launch
 ```
@@ -79,7 +79,7 @@ roslaunch mynt_eye_ros_wrapper vins_mono.launch
 ```
 Open another terminal
 ```
-cd path/to/VINS-Mono/docker
+cd path/to/MYNT-EYE-VINS-Sample/docker
 
 ./run.sh mynteye_s2100.launch
 ```
@@ -94,7 +94,7 @@ roslaunch mynteye_wrapper_d vins_mono.launch stream_mode:=0
 ```
 Open another terminal
 ```
-cd path/to/VINS-Mono/docker
+cd path/to/MYNT-EYE-VINS-Sample/docker
 
 ./run.sh mynteye_d.launch
 ```
