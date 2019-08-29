@@ -6,7 +6,7 @@ image_topic: "/mynteye/right/image_mono"
 output_path: "/dev/null"
 
 use_mynteye_adapter: 1
-mynteye_imu_srv: "s2"
+# mynteye_imu_srv: "s2"
 
 # camera calibration, please replace it with your own calibration file.
 # model_type: MEI
