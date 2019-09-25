@@ -69,7 +69,7 @@ cd path/to/MYNT-EYE-VINS-Sample/docker
 
 ./run.sh mynteye_s.launch
 ```
-When you use mynteye-s2 device
+When you use mynteye-s2100 device
 ```
 cd (local path of MYNT-EYE-S-SDK)
 
@@ -82,6 +82,21 @@ Open another terminal
 cd path/to/MYNT-EYE-VINS-Sample/docker
 
 ./run.sh mynteye_s2100.launch
+```
+
+When you use mynteye-s2110 device
+```
+cd (local path of MYNT-EYE-S-SDK)
+
+source ./wrappers/ros/devel/setup.bash
+
+roslaunch mynt_eye_ros_wrapper vins_mono.launch
+```
+Open another terminal
+```
+cd path/to/MYNT-EYE-VINS-Sample/docker
+
+./run.sh mynteye_s2110.launch
 ```
 
 When you use mynteye-d device
