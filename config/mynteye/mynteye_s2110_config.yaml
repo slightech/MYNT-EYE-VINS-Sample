@@ -65,18 +65,15 @@ extrinsicRotation: !!opencv-matrix
    rows: 3
    cols: 3
    dt: d
-   data: [ 9.9996651999999997e-01, 4.3087300000000002e-03,
-       6.9571800000000003e-03, 4.3487800000000000e-03,
-       9.9997400999999997e-01, -5.7512800000000001e-03,
-       6.9322200000000002e-03, 5.7813500000000002e-03,
-       9.9995926000000002e-01 ]
+   data: [ 9.9996651999999997e-01, 0, 0,
+           0, 9.9997400999999997e-01, 0,
+           0, 0, 9.9995926000000002e-01 ]
 extrinsicTranslation: !!opencv-matrix
    rows: 3
    cols: 1
    dt: d
-   data: [ -4.7773620000000003e-02, -2.2373099999999997e-03,
-       -1.6007100000000000e-03 ]
-
+   data: [ -6.5673620000000003e-02, -3.6573099999999997e-03,
+       -1.8007100000000000e-03 ]
 #feature traker paprameters
 max_cnt: 150            # max feature number in feature tracking
 min_dist: 30            # min distance between two features 
